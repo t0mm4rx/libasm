@@ -1,5 +1,12 @@
+OS = $(shell uname)
+
 TARGET = libasm.a
 TEST_BIN = test_bin
+
+COMP = nasm -fmacho64
+ifeq ($(OS), Linux)
+COMP = nasm -felf64
+endif
 
 SRCS = $(wildcard ./src/*)
 OBJS_TEMP = $(subst ./src/,./obj/,$(SRCS))
@@ -12,7 +19,7 @@ $(TARGET): $(OBJS)
 
 ./obj/%.o: ./src/%.s
 	mkdir -p ./obj
-	nasm -felf64 $< -o $@
+	$(COMP) $< -o $@
 
 clean:
 	rm -rf obj/*
