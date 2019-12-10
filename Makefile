@@ -30,5 +30,7 @@ fclean: clean
 re: fclean all
 
 test: $(TARGET)
-	gcc -g3 -fsanitize=address -L. -lasm main.c -o $(TEST_BIN)
+	gcc -c main.c -o main.o
+	gcc -Wall -Wextra -Werror -g3 -fsanitize=address main.o -L. -lasm -o $(TEST_BIN)
+	rm -rf main.o
 	./$(TEST_BIN)

@@ -1,7 +1,6 @@
-global ft_write
+global _ft_write
 
-;int	ft_write(int, const void *, size_t)
-ft_write:
-	mov rax, 0x2000004
+_ft_write:
+	mov rax, 1 
 	syscall
 	ret
