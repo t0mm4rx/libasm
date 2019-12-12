@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int	ft_strlen(char *str);
+int	_ft_strlen(char *str);
 char	*ft_strcpy(char *dst, const char *src);
 int	ft_strcmp(const char *s1, const char *s2);
 int	_ft_write(int fd, const void *content, size_t length);
@@ -11,5 +11,6 @@ int	ft_atoi_base(const char *src, const char *base);
 int main()
 {
 	printf("==> Tests libasm <==\n");
-	_ft_write(1, "Hello, world", 12);
+	_ft_write(1, "Hello, world\n", 13);
+	printf("len of 'Hello, world!': %d\n", _ft_strlen("Hello, world!"));
 }

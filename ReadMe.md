@@ -25,12 +25,43 @@ Arg3: rdx
 Arg4: r10
 Arg5: r8
 Arg6: r9
+Return value: eax
 
 Syscall IDs examples:
 0 --> read
 1 --> write
 2 --> open
 3 --> close
+
+Flags --> single bit register
+CF, PF, ZF, SF... 8 flags --> one 'flags' register 
+
+RIP register --> contains the next instruction adress, auto increments after each instruction
+
+CMP compares multiple variables, stores the result in flags
+
+jmp <label> --> set RIP to the adress of given label
+je --> jumps if equals
+jne --> jumps if not equals
+jg --> jumps if greater than
+jge --> jumps if greater and equals to
+jl --> jumps if smaller than
+jle --> jumps if smaller or equels to
+jz --> jumps if equals 0
+
+Exemple of conditional jump :
+cmp rax,23
+je doThis
+
+subroutine --> function
+\_start:
+	call \_function
+
+\_function:
+	mov rax,23
+	ret
+
+ret = return, goes back to the call adress
 
 ## Resources
 - https://www.youtube.com/playlist?list=PLetF-YjXm-sCH6FrTz4AQhfH6INDQvQSn
