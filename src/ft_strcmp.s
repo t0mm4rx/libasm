@@ -1,17 +1,15 @@
 global _ft_strcmp
 
 _ft_strcmp:
+	mov rax, 0
+	mov rcx, 0
 
 while:
 	mov al, [rdi]
 	mov cl, [rsi]
-	cmp byte al, byte cl
+	cmp al, cl
 	jne end
-	inc rdi
-	inc rsi
-	jmp while
 
 end:
-	sub cl, al
+	sub al, cl
 	ret
-
