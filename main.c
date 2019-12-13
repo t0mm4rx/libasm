@@ -2,11 +2,11 @@
 #include <string.h>
 #include <unistd.h>
 
-int	ft_strlen(char *str);
+int	ft_strlen(char *str); //done
 char	*ft_strcpy(char *dst, const char *src);
-int	ft_strcmp(const char *s1, const char *s2);
-int	ft_write(int fd, const void *content, size_t length);
-int	ft_read(int fd, void *buffer, size_t length);
+int	ft_strcmp(const char *s1, const char *s2); //done
+int	ft_write(int fd, const void *content, size_t length); //done
+int	ft_read(int fd, void *buffer, size_t length); //done
 char	*ft_strdup(const char *src);
 
 int main()

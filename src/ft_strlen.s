@@ -1,6 +1,6 @@
 global _ft_strlen
 
-_ft_strlen:
+_ft_strlen:	;(const char*) --> int
 	mov rcx, 0
 
 while:

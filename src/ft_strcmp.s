@@ -1,6 +1,6 @@
 global _ft_strcmp
 
-_ft_strcmp:
+_ft_strcmp:	;(const char*, const char*) --> int
 	mov rax, 0
 	mov rcx, 0
 
