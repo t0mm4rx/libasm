@@ -63,6 +63,15 @@ subroutine --> function
 
 ret = return, goes back to the call adress
 
+## Debug
+
+lldb <binary file>
+
+run --> run the program
+register read --> print all registers
+kill --> kill current thread
+memory read -c<bytes> <memory> --> read <bytes> bytes from address <memory>
+
 ## Resources
 - https://www.youtube.com/playlist?list=PLetF-YjXm-sCH6FrTz4AQhfH6INDQvQSn
 - https://cs.lmu.edu/~ray/notes/nasmtutorial/

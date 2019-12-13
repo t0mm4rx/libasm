@@ -38,6 +38,15 @@ int main()
 	printf("%s\n", dest);
 	strcpy(dest, src);
 	printf("%s\n", dest);
+	free(dest);
+
+	printf("\n** Testing ft_strdup:\n");
+	char *res = ft_strdup("Hello world!");
+	printf("|%s %lu|\n", res, strlen(res));
+	free(res);
+	res = strdup("Hello world!");
+	printf("|%s %lu|\n", res, strlen(res));
+	free(res);
 
 	printf("\n** Testing ft_read:\n");
 	char buffer[256] = {0};
