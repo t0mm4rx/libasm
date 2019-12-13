@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <libc.h>
 #include <unistd.h>
 
 int	ft_strlen(char *str); //done
@@ -29,6 +30,14 @@ int main()
 	printf("'', '': (%d, %d)\n", ft_strcmp("", ""), strcmp("", ""));
 	printf("'Ok', 'Okok': (%d, %d)\n", ft_strcmp("Ok", "Okok"), strcmp("Ok", "Okok"));
 	printf("'abc', 'abd': (%d, %d)\n", ft_strcmp("abc", "abd"), strcmp("abc", "abd"));
+
+	printf("\n** Testing ft_strcpy:\n");
+	const char *src = "Hello world!";
+	char *dest = calloc(20, sizeof(char));
+	ft_strcpy(dest, src);
+	printf("%s\n", dest);
+	strcpy(dest, src);
+	printf("%s\n", dest);
 
 	printf("\n** Testing ft_read:\n");
 	char buffer[256] = {0};

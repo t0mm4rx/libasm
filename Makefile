@@ -33,4 +33,4 @@ test: $(TARGET)
 	gcc -Wall -Wextra -Werror -c main.c -o main.o
 	gcc -Wall -Wextra -Werror -g3 -fsanitize=address main.o -L. -lasm -o $(TEST_BIN)
 	rm -rf main.o
-	./$(TEST_BIN)
+	./$(TEST_BIN) < .gitignore
