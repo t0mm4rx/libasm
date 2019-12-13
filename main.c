@@ -41,11 +41,12 @@ int main()
 	free(dest);
 
 	printf("\n** Testing ft_strdup:\n");
-	char *res = ft_strdup("Hello world!");
-	printf("|%s %lu|\n", res, strlen(res));
+	char *src2 = "Hello world!";
+	char *res = ft_strdup(src2);
+	printf("|%p %p %s %lu|\n", src2, res, res, strlen(res));
 	free(res);
-	res = strdup("Hello world!");
-	printf("|%s %lu|\n", res, strlen(res));
+	res = strdup(src2);
+	printf("|%p %p %s %lu|\n", src2, res, res, strlen(res));
 	free(res);
 
 	printf("\n** Testing ft_read:\n");
