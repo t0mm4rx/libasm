@@ -26,8 +26,9 @@ int main()
 	printf("'Ok !\\0Hey !': (%d, %lu)\n", ft_strlen("Ok !\0Hey !"), strlen("Ok !\0Hey !"));
 
 	printf("\n** Testing ft_strcmp:\n");
-	//printf("'', '': (%d, %d)\n", ft_strcmp("", ""), strcmp("", ""));
+	printf("'', '': (%d, %d)\n", ft_strcmp("", ""), strcmp("", ""));
 	printf("'Ok', 'Okok': (%d, %d)\n", ft_strcmp("Ok", "Okok"), strcmp("Ok", "Okok"));
+	printf("'abc', 'abd': (%d, %d)\n", ft_strcmp("abc", "abd"), strcmp("abc", "abd"));
 
 	printf("\n** Testing ft_read:\n");
 	char buffer[256] = {0};
