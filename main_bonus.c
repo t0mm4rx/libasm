@@ -27,23 +27,27 @@ void	print_list(t_list *node)
 	printf("NULL");
 }
 
-size_t	ft_list_size(t_list *list);
-int	get_base_value(char c, char *base);
+size_t	ft_list_size(t_list*);
+int	ft_atoi_base(char*, const char*);
 
 int main()
 {
 	printf("Tests bonus\n");
 
 	printf("\n** Testing ft_atoi_base:\n");
-	printf("|%d|\n", get_base_value('3', "01234567989ABCDEF"));
+	printf("|%d|\n", ft_atoi_base("17", "01234567989ABCDEF"));
+	printf("|%d|\n", ft_atoi_base("CF", "01234567989ABCDEF"));
+	printf("|%d|\n", ft_atoi_base("1000110", "01"));
+	printf("|%d|\n", ft_atoi_base("0", "01"));
+	printf("|%d|\n", ft_atoi_base("0", "01 "));
+	printf("|%d|\n", ft_atoi_base("  --++- 45102", "012345"));
 
+	printf("\n** Testing ft_list_size:\n");
 	t_list *node = new_list("First !");
 	node->next = new_list("Second");
 	node->next->next = new_list("Last");
-
 	print_list(node);
-	printf("\n\n** Testing ft_list_size:\n");
-	printf("Length: %zu\n", ft_list_size(node));
+	printf("\nLength: %zu\n", ft_list_size(node));
 	printf("Length of empty list: %zu\n", ft_list_size(NULL));
 
 

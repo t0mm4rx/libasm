@@ -1,5 +1,4 @@
 global _ft_atoi_base
-global _get_base_value
 
 ; fixed registers
 ; r15 --> total result
