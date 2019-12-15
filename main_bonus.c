@@ -28,6 +28,7 @@ void	print_list(t_list *node)
 }
 
 size_t	ft_list_size(t_list*);
+void	ft_list_push_front(t_list**, void*);
 int	ft_atoi_base(char*, const char*);
 
 int main()
@@ -50,6 +51,14 @@ int main()
 	printf("\nLength: %zu\n", ft_list_size(node));
 	printf("Length of empty list: %zu\n", ft_list_size(NULL));
 
+	printf("\n** Testing ft_list_push_front:\n");
+	ft_list_push_front(&node, "Added");
+	print_list(node);
+	t_list *empty = NULL;
+	ft_list_push_front(&empty, "Added to empty list");
+	printf("\n");
+	print_list(empty);
+	printf("\n");
 
 	return (0);
 }
