@@ -18,7 +18,8 @@ SRCS =	./src/ft_read.s \
 OBJS_TEMP = $(subst ./src/,./obj/,$(SRCS))
 OBJS = $(OBJS_TEMP:.s=.o)
 
-SRCS_BONUS = ./src/ft_list_size.s
+SRCS_BONUS =	./src/ft_list_size.s \
+		./src/ft_atoi_base.s
 OBJS_TEMP_BONUS = $(subst ./src/,./obj/,$(SRCS_BONUS))
 OBJS_BONUS = $(OBJS_TEMP_BONUS:.s=.o)
 

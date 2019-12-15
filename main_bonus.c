@@ -28,10 +28,14 @@ void	print_list(t_list *node)
 }
 
 size_t	ft_list_size(t_list *list);
+int	get_base_value(char c, char *base);
 
 int main()
 {
 	printf("Tests bonus\n");
+
+	printf("\n** Testing ft_atoi_base:\n");
+	printf("|%d|\n", get_base_value('3', "01234567989ABCDEF"));
 
 	t_list *node = new_list("First !");
 	node->next = new_list("Second");
