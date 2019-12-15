@@ -20,7 +20,8 @@ OBJS = $(OBJS_TEMP:.s=.o)
 
 SRCS_BONUS =	./src/ft_list_size.s \
 		./src/ft_atoi_base.s \
-		./src/ft_list_push_front.s
+		./src/ft_list_push_front.s \
+		./src/ft_list_sort.s
 OBJS_TEMP_BONUS = $(subst ./src/,./obj/,$(SRCS_BONUS))
 OBJS_BONUS = $(OBJS_TEMP_BONUS:.s=.o)
 

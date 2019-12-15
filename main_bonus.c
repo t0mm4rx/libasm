@@ -27,9 +27,19 @@ void	print_list(t_list *node)
 	printf("NULL");
 }
 
+int	cmp(void *a, void *b)
+{
+	puts("-------------OK--------------------");
+	if (!a || !b)
+		return (0);
+	return (strcmp(a, b));
+}
+
 size_t	ft_list_size(t_list*);
 void	ft_list_push_front(t_list**, void*);
 int	ft_atoi_base(char*, const char*);
+void	ft_swap(t_list*, t_list*);
+void	ft_list_sort(t_list**, int (*cmp)(void*, void*));
 
 int main()
 {
@@ -58,6 +68,22 @@ int main()
 	ft_list_push_front(&empty, "Added to empty list");
 	printf("\n");
 	print_list(empty);
+	printf("\n");
+
+	printf("\n** Testing ft_list_sort:\n");
+	t_list *list;
+	ft_list_push_front(&list, "5");
+	ft_list_push_front(&list, "3");
+	ft_list_push_front(&list, "7");
+	ft_list_push_front(&list, "1");
+	ft_list_push_front(&list, "1");
+	ft_list_push_front(&list, "9");
+	ft_list_push_front(&list, "8");
+	print_list(list);
+	ft_list_sort(&list, &cmp);
+	//ft_swap(list, list->next);
+	printf("\n");
+	print_list(list);
 	printf("\n");
 
 	return (0);
