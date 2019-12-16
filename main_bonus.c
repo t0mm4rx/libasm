@@ -29,7 +29,6 @@ void	print_list(t_list *node)
 
 int	cmp(void *a, void *b)
 {
-	puts("-------------OK--------------------");
 	if (!a || !b)
 		return (0);
 	return (strcmp(a, b));

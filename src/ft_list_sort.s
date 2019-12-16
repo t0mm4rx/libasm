@@ -2,6 +2,7 @@ global _ft_list_sort
 global _ft_swap
 
 ; fixed registers
+; r13 --> address of cmp function
 ; r14 --> a pointer
 ; r15 --> b pointer
 ; bubble sort a 0 to end
@@ -21,6 +22,7 @@ _ft_swap:
 
 ; void ft_list_sort(t_list**, int (*cmp)(void*, void*))
 _ft_list_sort:
+	mov r13, rsi
 	mov r14, [rdi]
 
 _ft_list_sort_while1:
@@ -35,12 +37,18 @@ _ft_list_sort_while1:
 _ft_list_sort_while2:
 	cmp r15, 0
 	jz _ft_list_sort_end
-	push rsi
-	mov rax, rsi
+	mov rax, r13
 	mov rdi, qword [r14]
 	mov rsi, qword [r15]
 	call rax
-	pop rsi
+	cmp rax, 0
+	jg _ft_list_sort_while2_end
+	mov rdi, r14
+	mov rsi, r15
+	call _ft_swap
+	jmp _ft_list_sort_while2_end
+
+_ft_list_sort_while2_end:
 	mov rcx, [r15 + 8]
 	mov r15, rcx
 	jmp _ft_list_sort_while2
