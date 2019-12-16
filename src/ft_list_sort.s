@@ -10,14 +10,15 @@ global _ft_swap
 
 ; void ft_swap(t_list*, t_list*)
 _ft_swap:
-	push rdi
-	push rsi
+	push rbx
+	push rcx
 	mov rbx, [rdi]
 	mov rcx, [rsi]
 	mov qword [rdi], rcx
 	mov qword [rsi], rbx
-	pop rsi
-	pop rdi
+	mov rax, 0
+	pop rcx
+	pop rbx
 	ret
 
 ; void ft_list_sort(t_list**, int (*cmp)(void*, void*))
@@ -41,8 +42,8 @@ _ft_list_sort_while2:
 	mov rdi, qword [r14]
 	mov rsi, qword [r15]
 	call rax
-	cmp rax, 0
-	jg _ft_list_sort_while2_end
+	cmp eax, byte 0
+	jle _ft_list_sort_while2_end
 	mov rdi, r14
 	mov rsi, r15
 	call _ft_swap

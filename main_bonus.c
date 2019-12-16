@@ -79,9 +79,9 @@ int main()
 	ft_list_push_front(&list, "9");
 	ft_list_push_front(&list, "8");
 	print_list(list);
+	printf("\n");
 	ft_list_sort(&list, &cmp);
 	//ft_swap(list, list->next);
-	printf("\n");
 	print_list(list);
 	printf("\n");
 
