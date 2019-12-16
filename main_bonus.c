@@ -84,6 +84,7 @@ int main()
 	//ft_swap(list, list->next);
 	print_list(list);
 	printf("\n");
+	ft_list_sort(&empty, NULL);
 
 	return (0);
 }

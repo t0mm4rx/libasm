@@ -23,6 +23,10 @@ _ft_swap:
 
 ; void ft_list_sort(t_list**, int (*cmp)(void*, void*))
 _ft_list_sort:
+	cmp rdi, 0
+	jz _ft_list_sort_end
+	cmp rsi, 0
+	jz _ft_list_sort_end
 	mov r13, rsi
 	mov r14, [rdi]
 
