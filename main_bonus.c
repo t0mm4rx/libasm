@@ -34,11 +34,22 @@ int	cmp(void *a, void *b)
 	return (strcmp(a, b));
 }
 
+int	cmp2(void *a, void *b)
+{
+	return (((char*)a)[0] == ((char*)b)[0]);
+}
+
+void	free_el(t_list *el)
+{
+	printf("Removed : %s\n", el->data);
+}
+
 size_t	ft_list_size(t_list*);
 void	ft_list_push_front(t_list**, void*);
 int	ft_atoi_base(char*, const char*);
 void	ft_swap(t_list*, t_list*);
 void	ft_list_sort(t_list**, int (*cmp)(void*, void*));
+void	ft_list_remove_if(t_list**, void*, int (*cmp)(void*, void*), void (*free)(t_list*));
 
 int main()
 {
@@ -85,6 +96,11 @@ int main()
 	print_list(list);
 	printf("\n");
 	ft_list_sort(&empty, NULL);
+
+	printf("\n** Testing remove if:\n");
+	printf("Removed '1':\n");
+	ft_list_remove_if(&list, "1", &cmp2, &free_el);
+	print_list(list);
 
 	return (0);
 }
