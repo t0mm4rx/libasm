@@ -36,7 +36,8 @@ int	cmp(void *a, void *b)
 
 int	cmp2(void *a, void *b)
 {
-	return (((char*)a)[0] == ((char*)b)[0]);
+	printf("-%s %s-\n", a, b);
+	return (((char*)a)[0] != ((char*)b)[0]);
 }
 
 void	free_el(t_list *el)
@@ -85,8 +86,10 @@ int main()
 	ft_list_push_front(&list, "5");
 	ft_list_push_front(&list, "3");
 	ft_list_push_front(&list, "7");
+	ft_list_push_front(&list, "7");
 	ft_list_push_front(&list, "1");
 	ft_list_push_front(&list, "1");
+	ft_list_push_front(&list, "7");
 	ft_list_push_front(&list, "9");
 	ft_list_push_front(&list, "8");
 	print_list(list);
@@ -98,8 +101,10 @@ int main()
 	ft_list_sort(&empty, NULL);
 
 	printf("\n** Testing remove if:\n");
-	printf("Removed '1':\n");
+	printf("Remove '1' and '5':\n");
+	ft_list_remove_if(NULL, NULL, NULL, NULL);
 	ft_list_remove_if(&list, "1", &cmp2, &free_el);
+	ft_list_remove_if(&list, "5", &cmp2, &free_el);
 	print_list(list);
 
 	return (0);
