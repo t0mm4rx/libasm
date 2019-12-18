@@ -1,124 +1,140 @@
 global _ft_list_remove_if
 extern _free
 
-; fixed registers
-; r12 --> t_list **list
-; r13 --> void *data_ref
-; r14 --> cmp()
-; r15 --> free()
-; r8 --> ptr
+; registers
+; r8: void*
+; r9: cmp(void*, void*)
+; r10: free_el(t_list*)
+; r11: list*
 
-; void ft_remove_if(t_list**, void*, int *cmp(void*, void*), void *free(t_list*))
-_ft_list_remove_if:
-	mov r12, rdi
-	mov r13, rsi
-	mov r14, rdx
-	mov r15, r10
-	cmp r12, 0
-	jz _ft_list_remove_if_end
-	cmp r14, 0
-	jz _ft_list_remove_if_end
-	;cmp r15, 0
-	;jz _ft_list_remove_if_end
-	mov r8, [r12]
-	jmp _ft_remove_if_while1
-
-_ft_list_remove_if_end:
+; rdi --> void*, rsi --> void*, rdx --> cmp(void*, void*)
+_cmp_elem:
+	push rdi
+	push rsi
+	push rax
+	push rdx
+	push r8
+	push r9
+	push r10
+	push r11
+	mov rax, rdx
+	call rax
+	mov rbx, rax
+	pop r11
+	pop r10
+	pop r9
+	pop r8
+	pop rdx
+	pop rax
+	pop rsi
+	pop rdi
+	mov rax, rbx
 	ret
 
-_ft_remove_if_while1:
-	cmp r8, 0						; if (!ptr)
-	jz _ft_list_remove_if_end		; return
-	mov rdi, qword[r8]				; 
-	mov rsi, r13					;
-	call _ft_call_cmp
-	cmp rax, 0						; if (a != 0)
-	jne _ft_list_remove_if_while2	; go to while 2
-	mov r9, qword [r8 + 8]			; temp = ptr->next
-	mov rdi, r8						;
-	; call _ft_call_free
-	mov r8, r9						; ptr = temp
-	mov [r12], r9					; *list = temp
-	jmp _ft_remove_if_while1		; go to top of while
+; rdi --> t_list*, rsi --> function free_elem(t_list*)
+_free_elem:
+	push rax
+	push rdi
+	push rsi
+	push rdx
+	push r8
+	push r9
+	push r10
+	push r11
+	mov rax, rsi
+	call rax
+	pop r11
+	pop r10
+	pop r9
+	pop r8
+	pop rdx
+	pop rsi
+	pop rdi
+	pop rax
+	push rax
+	push rdi
+	push rdx
+	push rsi
+	push r8
+	push r9
+	push r10
+	push r11
+	call _free
+	pop r11
+	pop r10
+	pop r9
+	pop r8
+	pop rsi
+	pop rdx
+	pop rdi
+	pop rax
+	ret
+
+; rdi --> t_list**, rsi --> void*, rdx --> cmp(), rcx --> free()
+_ft_list_remove_if:
+	mov r9, rdx			; r9 = &cmp
+	mov r10, rcx			; r10 = &free
+	mov r8, rsi			; r8 = data_ref
+	mov r11, rdi			; r11 = list
+
+	cmp r11, 0			; if (!rdi) return;
+	jz _ft_list_remove_if_end
+
+_ft_list_remove_if_while1:
+	mov rbx, qword [r11]		; ptr = *list
+	cmp rbx, 0			; if (!ptr)
+	jz _ft_list_remove_if_end
+
+	mov rdi, r8			; cmp(data_ref, ptr->data)
+	mov rsi, qword [rbx]
+	mov rdx, r9
+	call _cmp_elem
+
+	cmp rax, 0			; if (... != 0)
+	jne _ft_go_to_while2		; go to second while
+
+	mov rbx, [r11]
+	mov rcx, qword [rbx + 8]	; tmp = ptr->next
+	mov [r11], rcx			; *list = tmp
+
+	mov rdi, rbx			; free(ptr)
+	mov rsi, r10
+	call _free_elem
+
+	jmp _ft_list_remove_if_while1	; loop
+
+_ft_go_to_while2:
+	mov rbx, qword [r11]
+	mov r11, rbx
 
 _ft_list_remove_if_while2:
-	cmp r8, 0
+	cmp r11, 0			; if (!ptr || !ptr->next) return;
 	jz _ft_list_remove_if_end
-	cmp qword[r8 + 8], 0
+	cmp qword [r11 + 8], 0
 	jz _ft_list_remove_if_end
-	mov r9, [r8 + 8]
-	mov rdi, qword [r9]
-	mov rsi, r13
-	call _ft_call_cmp
-	cmp rax, 0
-	jne _ft_list_remove_if_while2_end
-	mov rbx, qword [r9 + 8]
-	mov qword [r8 + 8], rbx
-	mov r8, rbx
-	; mov rdi, r9
-	; call _ft_call_cfree
-	mov rdi, r9
-	; call _ft_call_free
+
+	mov rdi, r8			; cmp(data_ref, ptr->next->data)
+	mov rbx, [r11 + 8]
+	mov rsi, qword [rbx]
+	mov rdx, r9
+	call _cmp_elem
+
+	cmp rax, 0			; if (... == 0)
+	je _ft_list_remove_if_remove	; go to remove
+
+	mov r11, [r11 + 8]
 	jmp _ft_list_remove_if_while2
 
-_ft_list_remove_if_while2_end:
-	mov r8, r9
-	jmp _ft_list_remove_if_while2
+_ft_list_remove_if_remove:
+	mov rbx, qword [r11 + 8]	; tmp = ptr->next
+	mov rcx, qword [rbx + 8]	; tmp2 = ptr->next->next
+	mov qword [r11 + 8], rcx	; ptr->next = tmp2
 
-_ft_call_free:
-	push r8							; save registers
-	push r9							;
-	push r10						;
-	push r12						;
-	push r13						;
-	push r14						;
-	push r15						;
-	call _free
-	pop r15							; restore registers
-	pop r14							;
-	pop r13							;
-	pop r12							;
-	pop r10							;
-	pop r9							;
-	pop r8							;
-	ret
+	mov rdi, rbx			; free(tmp)
+	mov rsi, r10
+	call _free_elem
 
-_ft_call_cfree:
-	push r8							; save registers
-	push r9							;
-	push r10						;
-	push r12						;
-	push r13						;
-	push r14						;
-	push r15						;
-	mov rax, r15
-	call rax
-	pop r15							; restore registers
-	pop r14							;
-	pop r13							;
-	pop r12							;
-	pop r10							;
-	pop r9							;
-	pop r8							;
-	ret
+	jmp _ft_list_remove_if_while2	; go back to second loop
 
-_ft_call_cmp:
-	push r8							; save registers
-	push r9							;
-	push r10						;
-	push r12						;
-	push r13						;
-	push r14						;
-	push r15						;
-	;mov rdi, qword[r8]				; 
-	;mov rsi, r13					;
-	mov rax, r14					;
-	call rax						; int a = cmp(ptr->data, data_ref)
-	pop r15							; restore registers
-	pop r14							;
-	pop r13							;
-	pop r12							;
-	pop r10							;
-	pop r9							;
-	pop r8							;
+_ft_list_remove_if_end:
 	ret

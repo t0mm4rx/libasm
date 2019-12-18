@@ -36,13 +36,12 @@ int	cmp(void *a, void *b)
 
 int	cmp2(void *a, void *b)
 {
-	printf("-%s %s-\n", a, b);
 	return (((char*)a)[0] != ((char*)b)[0]);
 }
 
 void	free_el(t_list *el)
 {
-	printf("Removed : %s\n", el->data);
+	(void)el;
 }
 
 size_t	ft_list_size(t_list*);
@@ -51,6 +50,9 @@ int	ft_atoi_base(char*, const char*);
 void	ft_swap(t_list*, t_list*);
 void	ft_list_sort(t_list**, int (*cmp)(void*, void*));
 void	ft_list_remove_if(t_list**, void*, int (*cmp)(void*, void*), void (*free)(t_list*));
+
+void	free_elem(t_list*, void (*free_node)(t_list*));
+int	cmp_elem(void*, void*, int(*cmp)(void*, void*));
 
 int main()
 {
@@ -101,11 +103,19 @@ int main()
 	ft_list_sort(&empty, NULL);
 
 	printf("\n** Testing remove if:\n");
-	printf("Remove '1' and '5':\n");
+	print_list(list);
+	printf("\n\nRemove '1':\n");
 	ft_list_remove_if(NULL, NULL, NULL, NULL);
 	ft_list_remove_if(&list, "1", &cmp2, &free_el);
+	print_list(list);
+	printf("\n\nRemove '5':\n");
 	ft_list_remove_if(&list, "5", &cmp2, &free_el);
 	print_list(list);
+	printf("\n\nRemove '9':\n");
+	ft_list_remove_if(&list, "9", &cmp2, &free_el);
+	print_list(list);
+	//t_list *el = new_list("ok");
+	//free_elem(el, &free_el);
 
 	return (0);
 }
