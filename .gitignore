@@ -2,4 +2,5 @@
 *.a
 *a.out*
 test_bin
+test_bin_bonus
 *.swp
